@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "mobile-fu/version"
-require 'rake'
+
+# require "mobile-fu/version"
+# require 'rake'
 
 Gem::Specification.new do |s|
   s.name        = "mobile-fu"
-  s.version     = MobileFu::VERSION
+  s.version     = "1.3.1"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Brendan Lim", "Ben Langfeld"]
   s.email       = ["brendangl@gmail.com, ben@langfeld.me"]
@@ -15,13 +15,14 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "mobile-fu"
 
-  s.files         = FileList['lib/**/*.rb', '[A-Z]*'].to_a
-  s.test_files    = FileList['test/*.rb'].to_a
+  s.files         = Dir['lib/   *.rb']
+  s.test_files    = Dir['test/*.rb'].to_a
   s.executables   = [ ]
   s.require_path  = 'lib'
 
   s.add_dependency 'rails'
   s.add_dependency 'rack-mobile-detect'
+  s.add_dependency 'rake'
   s.add_development_dependency 'mocha'
   s.add_development_dependency 'rdoc'
   s.add_development_dependency 'httparty'
