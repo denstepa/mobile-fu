@@ -20,7 +20,8 @@ module MobileFu
       initializer "mobile-fu.action_view" do |app|
         ActiveSupport.on_load :action_view do
           include MobileFu::Helper
-          alias_method_chain :stylesheet_link_tag, :mobilization
+          alias_method :stylesheet_link_tag_without_mobilization, :stylesheet_link_tag
+          alias_method :stylesheet_link_tag, :stylesheet_link_tag_with_mobilization
         end
       end
     end
@@ -55,7 +56,7 @@ module ActionController
       def has_mobile_fu(set_request_format = true)
         include ActionController::MobileFu::InstanceMethods
 
-        before_filter :set_request_format if set_request_format
+        before_action :set_request_format if set_request_format
 
         helper_method :is_mobile_device?
         helper_method :is_tablet_device?
@@ -197,5 +198,6 @@ end
 if Rails::VERSION::MAJOR < 3
   ActionController::Base.send :include, ActionController::MobileFu
   ActionView::Base.send :include, MobileFu::Helper
-  ActionView::Base.send :alias_method_chain, :stylesheet_link_tag, :mobilization
+  ActionView::Base.send :alias_method, :stylesheet_link_tag_without_mobilization, :stylesheet_link_tag
+  ActionView::Base.send :alias_method, :stylesheet_link_tag, :stylesheet_link_tag_with_mobilization
 end
